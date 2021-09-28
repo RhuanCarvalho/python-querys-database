@@ -1,6 +1,6 @@
 @echo off
 
-set "VIRTUAL_ENV=C:\Users\Pc\Desktop\Geral\Projetos_Querys\Querys_Mensais"
+set "VIRTUAL_ENV=C:\Users\Pc\Desktop\bismensal\bismensal"
 
 if defined _OLD_VIRTUAL_PROMPT (
     set "PROMPT=%_OLD_VIRTUAL_PROMPT%"
