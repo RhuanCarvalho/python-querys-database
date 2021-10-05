@@ -147,6 +147,18 @@ class Resultado_Consultas_MK:
         result_DataFrame.columns = self.evolucao_spc_MK.name_columns
         return (result, result_DataFrame, self.evolucao_spc_MK.name_columns)
 
+    def spc_cadastradas_mensal(self):
+        result = self.consulta.query(self.evolucao_spc_MK.cadastros_SPC_mensal())
+        result_DataFrame = pd.DataFrame(result)
+        result_DataFrame.columns = self.evolucao_spc_MK.name_columns
+        return (result, result_DataFrame, self.evolucao_spc_MK.name_columns)
+
+    def spc_retiradas_mensal(self):
+        result = self.consulta.query(self.evolucao_spc_MK.retiradas_SPC_mensal())
+        result_DataFrame = pd.DataFrame(result)
+        result_DataFrame.columns = self.evolucao_spc_MK.name_columns
+        return (result, result_DataFrame, self.evolucao_spc_MK.name_columns)
+
     #--------------------------------
     #Returns Evolução de Base
     #--------------------------------

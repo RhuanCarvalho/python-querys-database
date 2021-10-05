@@ -54,11 +54,11 @@ class Save_to_Excel:
             if type(row[2]) != float:
                 cell_format = cell_format
                 cell_bg_color = cell_bg_color
+                table.write('C'+str(aux),row[2], cell_format if aux % 2 else cell_bg_color)
             else:
                 cell_format = cell_format_Currency
                 cell_bg_color = cell_bg_color_Currency
-
-            table.write('C'+str(aux),row[2], cell_format if aux % 2 else cell_bg_color)
+                table.write_number('C'+str(aux),row[2], cell_format if aux % 2 else cell_bg_color)
 
 
             aux += 1
@@ -82,11 +82,11 @@ class Save_to_Excel:
             if type(row[1]) != float:
                 cell_format = cell_format
                 cell_bg_color = cell_bg_color
+                table.write('C'+str(aux), row[1], cell_format if aux % 2 else cell_bg_color)
             else:
                 cell_format = cell_format_Currency
                 cell_bg_color = cell_bg_color_Currency
-            
-            table.write('C'+str(aux), row[1], cell_format if aux % 2 else cell_bg_color)
+                table.write_number('C'+str(aux),row[1], cell_format if aux % 2 else cell_bg_color)
 
             aux += 1
 
@@ -148,11 +148,13 @@ class Save_to_Excel:
             if type(row[1]) != float:
                 cell_format = cell_format
                 cell_bg_color = cell_bg_color
+                table.write('B'+str(aux), row[1], cell_format if aux % 2 else cell_bg_color)
             else:
                 cell_format = cell_format_Currency
                 cell_bg_color = cell_bg_color_Currency
+                table.write_number('B'+str(aux),row[1], cell_format if aux % 2 else cell_bg_color)
+
             
-            table.write('B'+str(aux), row[1], cell_format if aux % 2 else cell_bg_color)
 
             aux += 1
 

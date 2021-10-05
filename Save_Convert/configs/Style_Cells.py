@@ -36,7 +36,8 @@ class Style:
             'border': 1,
             'align': 'center',
             'valign': 'vcenter',
-            'num_format': 'R$ #,###,###.##'
+            # 'num_format': 'R$ #,###,###.##'
+            'num_format': 'R$ #,###,##0.00'
         }
 
         self.cell_bg_color_Currency = {
@@ -44,5 +45,6 @@ class Style:
             'align': 'center',
             'valign': 'vcenter',
             'bg_color': '#e2efda',
-            'num_format': 'R$ #,###,###.##'
+            # 'num_format': 'R$ #,###,###.##'
+            'num_format': 'R$ #,###,##0.00'
         }

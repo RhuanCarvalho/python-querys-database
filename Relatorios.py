@@ -82,14 +82,26 @@ print('\nSPC')
 result, df_ , name_columns = consulta.evolucao_spc_cadastradas()
 df_.to_csv('saves/csv/evolucao_spc_cadastradas.csv')
 
-save.Create_Simple_return(result, 'Evolucao_Cadastro_SPC.xlsx', name_columns_cidade, 'Evolução Cadastro de faturas no SPC')
+save.Create_Simple_return(result, 'Evolucao_Cadastro_SPC.xlsx', name_columns, 'Evolução Cadastro de faturas no SPC')
 
 result, df_ , name_columns = consulta.evolucao_spc_retiradas()
 df_.to_csv('saves/csv/evolucao_spc_retiradas.csv')
 
-save.Create_Simple_return(result, 'Evolucao_Retiradas_SPC.xlsx', name_columns_cidade, 'Evolução Retiradas de faturas no SPC')
+save.Create_Simple_return(result, 'Evolucao_Retiradas_SPC.xlsx', name_columns, 'Evolução Retiradas de faturas no SPC')
 
 # # -------------------------------------------------
+
+result, df_ , name_columns = consulta.spc_cadastradas_mensal()
+df_.to_csv('saves/csv/spc_cadastradas_mensal.csv')
+
+save.Create_Simple_return(result, 'Cadastro_SPC_Mensal.xlsx', name_columns, 'Cadastro de faturas Mensal no SPC')
+
+result, df_ , name_columns = consulta.spc_retiradas_mensal()
+df_.to_csv('saves/csv/spc_retiradas_mensal.csv')
+
+save.Create_Simple_return(result, 'Retiradas_SPC_Mensal.xlsx', name_columns, 'Retiradas de faturas Mensal no SPC')
+
+# -------------------------------------------------
 
 print('\nEvolução de Base')
 cidade_1, df_ , name_columns_cidade = consulta.evolucao_contratos_criados_por_cidades()
