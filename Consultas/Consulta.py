@@ -4,15 +4,16 @@ from DataBase.Connect_DB import Person
 # Esses imports retornam apenas a query e não o resultado delas
 # -------------------------------------------------------------
 
-from Querys.Querys_Bloqueios_MK              import Querys_de_Bloqueio_MK
-from Querys.Querys_Cancelamentos_MK          import Querys_de_Cancelamentos_MK
-from Querys.Querys_Vendas_MK                 import Querys_de_Vendas_MK
-from Querys.Querys_Faturamento_MK            import Querys_de_Faturamento_MK
-from Querys.Querys_Pagamentos_MK             import Querys_de_Pagamentos_MK
-from Querys.Querys_Recebimentos_MK           import Querys_de_Recebimentos_MK
-from Querys.Querys_SPC_Cadastros_e_Retiradas import Querys_SPC_Cadastros_e_Retiradas_MK
-from Querys.Querys_Evolucao_de_Base          import Querys_Evolucao_de_Base_MK
-from Querys.Querys_Inadimplencia             import Querys_de_Inadimplencia_MK
+from Querys.Querys_Bloqueios_MK                     import Querys_de_Bloqueio_MK
+from Querys.Querys_Cancelamentos_MK                 import Querys_de_Cancelamentos_MK
+from Querys.Querys_Vendas_MK                        import Querys_de_Vendas_MK
+from Querys.Querys_Faturamento_MK                   import Querys_de_Faturamento_MK
+from Querys.Querys_Pagamentos_MK                    import Querys_de_Pagamentos_MK
+from Querys.Querys_Recebimentos_MK                  import Querys_de_Recebimentos_MK
+from Querys.Querys_SPC_Cadastros_e_Retiradas        import Querys_SPC_Cadastros_e_Retiradas_MK
+from Querys.Querys_Evolucao_de_Base                 import Querys_Evolucao_de_Base_MK
+from Querys.Querys_Inadimplencia                    import Querys_de_Inadimplencia_MK
+from Querys.Querys_Evolucao_de_Base_sem_migracao    import Querys_Evolucao_de_Base_sem_migracao_MK
 
 
 ##################
@@ -24,16 +25,16 @@ class Resultado_Consultas_MK:
         
         self.consulta = Person()
 
-        self.bloqueio_MK =          Querys_de_Bloqueio_MK() 
-        self.cancelamento_MK =      Querys_de_Cancelamentos_MK() 
-        self.vendas_MK =            Querys_de_Vendas_MK()
-        self.faturamento_MK =       Querys_de_Faturamento_MK()
-        self.pagamentos_MK =        Querys_de_Pagamentos_MK()
-        self.recebimentos_MK =      Querys_de_Recebimentos_MK()
-        self.evolucao_spc_MK =      Querys_SPC_Cadastros_e_Retiradas_MK()
-        self.evulacao_de_base_MK =  Querys_Evolucao_de_Base_MK()
-        self.indimplencia_MK =      Querys_de_Inadimplencia_MK()
-          
+        self.bloqueio_MK =                      Querys_de_Bloqueio_MK() 
+        self.cancelamento_MK =                  Querys_de_Cancelamentos_MK() 
+        self.vendas_MK =                        Querys_de_Vendas_MK()
+        self.faturamento_MK =                   Querys_de_Faturamento_MK()
+        self.pagamentos_MK =                    Querys_de_Pagamentos_MK()
+        self.recebimentos_MK =                  Querys_de_Recebimentos_MK()
+        self.evolucao_spc_MK =                  Querys_SPC_Cadastros_e_Retiradas_MK()
+        self.evulacao_de_base_MK =              Querys_Evolucao_de_Base_MK()
+        self.indimplencia_MK =                  Querys_de_Inadimplencia_MK()
+        self.evolucao_base_sem_migracao_MK =    Querys_Evolucao_de_Base_sem_migracao_MK()        
 
     #--------------------------------
     # Returns Consultas de bloqueio
@@ -166,6 +167,28 @@ class Resultado_Consultas_MK:
         result_DataFrame = pd.DataFrame(result)
         result_DataFrame.columns = self.evulacao_de_base_MK.name_columns
         return (result, result_DataFrame, self.evulacao_de_base_MK.name_columns)
+
+
+    #--------------------------------
+    #Returns Evolução de Base Sem Migracao
+    #--------------------------------
+    def evolucao_contratos_cancelados_por_cidades_sem_migracao(self):
+        result = self.consulta.query(self.evolucao_base_sem_migracao_MK.evolucao_contratos_cancelados_por_cidades())
+        result_DataFrame = pd.DataFrame(result)
+        result_DataFrame.columns = self.evolucao_base_sem_migracao_MK.name_columns
+        return (result, result_DataFrame, self.evolucao_base_sem_migracao_MK.name_columns)
+
+    def evolucao_contratos_criados_por_cidades_sem_migracao(self):
+        result = self.consulta.query(self.evolucao_base_sem_migracao_MK.evolucao_contratos_criados_por_cidades())
+        result_DataFrame = pd.DataFrame(result)
+        result_DataFrame.columns = self.evolucao_base_sem_migracao_MK.name_columns
+        return (result, result_DataFrame, self.evolucao_base_sem_migracao_MK.name_columns)
+
+    def evolucao_contratos_criados_e_cancelados_totais_sem_migracao(self):
+        result = self.consulta.query(self.evolucao_base_sem_migracao_MK.evolucao_contratos_criados_e_cancelados_totais())
+        result_DataFrame = pd.DataFrame(result)
+        result_DataFrame.columns = self.evolucao_base_sem_migracao_MK.name_columns
+        return (result, result_DataFrame, self.evolucao_base_sem_migracao_MK.name_columns)
 
     #--------------------------------
     #Returns Inadimplencia

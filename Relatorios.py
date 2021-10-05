@@ -89,7 +89,7 @@ df_.to_csv('saves/csv/evolucao_spc_retiradas.csv')
 
 save.Create_Simple_return(result, 'Evolucao_Retiradas_SPC.xlsx', name_columns_cidade, 'Evolução Retiradas de faturas no SPC')
 
-# -------------------------------------------------
+# # -------------------------------------------------
 
 print('\nEvolução de Base')
 cidade_1, df_ , name_columns_cidade = consulta.evolucao_contratos_criados_por_cidades()
@@ -103,7 +103,23 @@ df_.to_csv('saves/csv/evolucao_contratos_criados_e_cancelados_totais.csv')
 
 save.Create_evolucao_base(cidade_1, cidade, mes, 'Evolucao_de_Base.xlsx', ['Data','Cidade', 'Contratos_Criados', 'Constratos_Cancelados', 'Contratos_Ativos'], 'Evolução de Base')
 
-# -------------------------------------------------
+# # -------------------------------------------------
+
+# # -------------------------------------------------
+
+print('\nEvolução de Base Sem Migraçao')
+cidade_1, df_ , name_columns_cidade = consulta.evolucao_contratos_criados_por_cidades_sem_migracao()
+df_.to_csv('saves/csv/evolucao_contratos_criados_por_cidades_sem_migracao.csv')
+
+cidade, df_ , name_columns_cidade = consulta.evolucao_contratos_cancelados_por_cidades_sem_migracao()
+df_.to_csv('saves/csv/evolucao_contratos_cancelados_por_cidades_sem_migracao.csv')
+
+mes, df_ , name_columns_cidade = consulta.evolucao_contratos_criados_e_cancelados_totais_sem_migracao()
+df_.to_csv('saves/csv/evolucao_contratos_criados_e_cancelados_totais_sem_migracao.csv')
+
+save.Create_evolucao_base(cidade_1, cidade, mes, 'Evolucao_de_Base_Sem_Migracao.xlsx', ['Data','Cidade', 'Contratos_Criados', 'Constratos_Cancelados', 'Contratos_Ativos'], 'Evolução de Base Sem Migracao')
+
+# # -------------------------------------------------
 
 print('\nInadimplencia')
 cidade, df_ , name_columns_cidade = consulta.inadimplencia_por_cidades()
