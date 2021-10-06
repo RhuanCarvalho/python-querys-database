@@ -1,6 +1,5 @@
 from datetime import date
 from Consultas.Get_Date import Get_Date
-from Save_Convert.Save_to_SQL import Save_to_SQL
 
 
 class Querys_Evolucao_de_Base_MK:
@@ -11,17 +10,12 @@ class Querys_Evolucao_de_Base_MK:
         #Config Periodo de Consultas
         self.dates_ = Get_Date( type_date = 1 )
         # -----------------------------------------------------
-        # ----------------
-        # Nome Colunas
-        self.name_columns = []
-        # ----------------
-        
+              
 
     def evolucao_contratos_cancelados_por_cidades(self): # MK - OK OK OK
 
         # Variaveis
         # -------------------------
-        self.name_columns = ['Data', 'Cidade', 'Contratos_Cancelados']
         complete_query = ''
         # -------------------------
 
@@ -89,7 +83,6 @@ class Querys_Evolucao_de_Base_MK:
 
         # Variaveis
         # -------------------------
-        self.name_columns = ['Data', 'Cidade', 'Contratos_Criados']
         complete_query = ''
         # -------------------------
 
@@ -160,7 +153,6 @@ class Querys_Evolucao_de_Base_MK:
 
         # Variaveis
         # -------------------------
-        self.name_columns = ['Data', 'Quantidade_Criados', 'Quantidade_Cancelados']
         complete_query = ''
         # -------------------------
 

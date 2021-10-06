@@ -1,5 +1,4 @@
 from Consultas.Get_Date import Get_Date
-from Save_Convert.Save_to_SQL import Save_to_SQL
 
 class Querys_de_Vendas_MK:
 
@@ -8,17 +7,12 @@ class Querys_de_Vendas_MK:
         #Config Periodo de Consultas
         self.dates_ = Get_Date( type_date = 1 )
         # -----------------------------------------------------
-        # ----------------
-        # Nome Colunas
-        self.name_columns = []
-        # ----------------
 
 
     def vendas_por_cidades(self): # MK - OK OK
         
         # Variaveis 
         # ---------------------------
-        self.name_columns = ['Data', 'Cidade', 'Quantidade']
         complete_query = ''
         # ---------------------------
 
@@ -84,7 +78,6 @@ class Querys_de_Vendas_MK:
         
         # Variaveis 
         # ---------------------------
-        self.name_columns = ['Data', 'Quantidade']
         complete_query = ''
         # ---------------------------
 

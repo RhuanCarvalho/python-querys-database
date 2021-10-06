@@ -1,5 +1,4 @@
 from datetime import date
-from Save_Convert.Save_to_SQL import Save_to_SQL
 from Consultas.Get_Date import Get_Date
 
 class Querys_de_Bloqueio_MK:
@@ -10,17 +9,12 @@ class Querys_de_Bloqueio_MK:
         #Config Periodo de Consultas
         self.dates_ = Get_Date( type_date = 1 )
         # -----------------------------------------------------
-
-        # ----------------
-        # Nome Colunas
-        self.name_columns = []
-        # ----------------
+        
 
     def bloqueios_por_cidades(self): # MK - OK OK OK
         
         # Variaveis 
         # ---------------------------
-        self.name_columns = ['Data', 'Cidade', 'Quantidade']
         complete_query = ''
         # ---------------------------
 
@@ -84,7 +78,6 @@ class Querys_de_Bloqueio_MK:
 
         # Variaveis
         # -------------------------
-        self.name_columns = ['Data', 'Quantidade']
         complete_query = ''
         # -------------------------
         
@@ -140,7 +133,6 @@ class Querys_de_Bloqueio_MK:
 
         # Variaveis
         # -------------------------
-        self.name_columns = ['Data', 'Cidade', 'Quantidade']
         complete_query = ''
         # -------------------------
 
@@ -248,7 +240,6 @@ class Querys_de_Bloqueio_MK:
 
         # Variaveis
         # -------------------------
-        self.name_columns = ['Data', 'Quantidade']
         complete_query = ''
         # -------------------------
 
