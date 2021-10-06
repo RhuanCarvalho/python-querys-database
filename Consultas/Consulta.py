@@ -1,9 +1,6 @@
-import pandas as pd
-from DataBase.Connect_DB import Person
-
+from Save_Convert.Geral_Saves import Geral_Save
 # Esses imports retornam apenas a query e não o resultado delas
 # -------------------------------------------------------------
-
 from Querys.Querys_Bloqueios_MK                     import Querys_de_Bloqueio_MK
 from Querys.Querys_Cancelamentos_MK                 import Querys_de_Cancelamentos_MK
 from Querys.Querys_Vendas_MK                        import Querys_de_Vendas_MK
@@ -15,16 +12,15 @@ from Querys.Querys_Evolucao_de_Base                 import Querys_Evolucao_de_Ba
 from Querys.Querys_Inadimplencia                    import Querys_de_Inadimplencia_MK
 from Querys.Querys_Evolucao_de_Base_sem_migracao    import Querys_Evolucao_de_Base_sem_migracao_MK
 
-
 ##################
 # MK
 ##################
 class Resultado_Consultas_MK:
     
     def __init__(self):
-        
-        self.consulta = Person()
 
+        self.geral = Geral_Save()
+        
         self.bloqueio_MK =                      Querys_de_Bloqueio_MK() 
         self.cancelamento_MK =                  Querys_de_Cancelamentos_MK() 
         self.vendas_MK =                        Querys_de_Vendas_MK()
@@ -34,197 +30,212 @@ class Resultado_Consultas_MK:
         self.evolucao_spc_MK =                  Querys_SPC_Cadastros_e_Retiradas_MK()
         self.evulacao_de_base_MK =              Querys_Evolucao_de_Base_MK()
         self.indimplencia_MK =                  Querys_de_Inadimplencia_MK()
-        self.evolucao_base_sem_migracao_MK =    Querys_Evolucao_de_Base_sem_migracao_MK()        
+        self.evolucao_base_sem_migracao_MK =    Querys_Evolucao_de_Base_sem_migracao_MK() 
 
-    #--------------------------------
-    # Returns Consultas de bloqueio
-    #-------------------------------- 
-    def bloqueios_por_cidades(self):
-        result = self.consulta.query(self.bloqueio_MK.bloqueios_por_cidades())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.bloqueio_MK.name_columns
-        return (result, result_DataFrame, self.bloqueio_MK.name_columns)
+    # Type Colunms
+        #-----------------------------------------------------
+        self.type_column_DCQ    = ['Data','Cidade','Quantidade']    
+        self.type_column_DQ     = ['Data','Quantidade']    
+        self.type_column_DCV    = ['Data','Cidade','Valor']    
+        self.type_column_DV     = ['Data','Valor']    
+        self.type_column_DQQ    = ['Data','Quantidade', 'Quantidade']    
+        #-----------------------------------------------------
+
+    # Paths SQL saves
+
+        self.bloqueio                       = 'bloqueio' 
+        self.cancelamento                   = 'cancelamento' 
+        self.evolucao_base                  = 'evolucao_base' 
+        self.evolucao_base_sem_migracao     = 'evolucao_base_sem_migracao'
+        self.faturamento                    = 'faturamento' 
+        self.inadimplencia                  = 'inadimplencia'
+        self.pagamento                      = 'pagamento' 
+        self.recebimento                    = 'recebimento'
+        self.spc                            = 'spc'
+        self.venda                          = 'venda'
+
+
+    def Auto_ (self):
+
+    # #--------------------------------
+    # # Bloqueio
+    # #-------------------------------- 
+    #     print('\nBloqueio')
+    #     self.geral.saves(
+    #         numero_de_querys    = 2,
+    #         querys_sql          = [self.bloqueio_MK.bloqueios_por_cidades() , self.bloqueio_MK.bloqueios_total_por_mes()],
+    #         path_querys         = self.bloqueio,
+    #         names_arquivos      = ['bloqueios_por_cidades','bloqueios_total_por_mes'],
+    #         names_columns       = [self.type_column_DCQ, self.type_column_DQ],
+    #         name_consulta       = 'Bloqueio'
+    #         )
+
+    # #--------------------------------
+    # # Evolucao Bloqueio
+    # #-------------------------------- 
+    #     print('\nEvolucao Bloqueio')
+    #     self.geral.saves(
+    #         numero_de_querys    = 2,
+    #         querys_sql          = [self.bloqueio_MK.evolucao_bloqueios_por_cidade() , self.bloqueio_MK.evolucao_bloqueios_totais_por_mes()],
+    #         path_querys         = self.bloqueio,
+    #         names_arquivos      = ['evolucao_bloqueios_por_cidade','evolucao_bloqueios_totais_por_mes'],
+    #         names_columns       = [self.type_column_DCQ, self.type_column_DQ],
+    #         name_consulta       = 'Evolucao Bloqueio'
+    #         )
         
-    def bloqueios_total_por_mes(self):
-        result = self.consulta.query(self.bloqueio_MK.bloqueios_total_por_mes())
-        result_DataFrame = pd.DataFrame(result)  
-        result_DataFrame.columns = self.bloqueio_MK.name_columns
-        return (result, result_DataFrame, self.bloqueio_MK.name_columns)
+    # #--------------------------------
+    # # Cancelamento
+    # #--------------------------------
+    #     print('\nCancelamento')
+    #     self.geral.saves(
+    #         numero_de_querys    = 2,
+    #         querys_sql          = [self.cancelamento_MK.cancelamentos_por_cidades() , self.cancelamento_MK.cancelamentos_geral_por_mes()],
+    #         path_querys         = self.cancelamento,
+    #         names_arquivos      = ['cancelamentos_por_cidades','cancelamentos_geral_por_mes'],
+    #         names_columns       = [self.type_column_DCQ, self.type_column_DQ],
+    #         name_consulta       = 'Cancelamento'
+    #         )
 
-    def evolucao_bloqueios_por_cidade(self):
-        result = self.consulta.query(self.bloqueio_MK.evolucao_bloqueios_por_cidade())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.bloqueio_MK.name_columns
-        return (result, result_DataFrame, self.bloqueio_MK.name_columns)
+    # #--------------------------------
+    # # Vendas
+    # #--------------------------------
+    #     print('\nVendas')
+    #     self.geral.saves(
+    #         numero_de_querys    = 2,
+    #         querys_sql          = [self.vendas_MK.vendas_por_cidades() , self.vendas_MK.vendas_geral_por_mes()],
+    #         path_querys         = self.venda,
+    #         names_arquivos      = ['vendas_por_cidades','vendas_geral_por_mes'],
+    #         names_columns       = [self.type_column_DCQ, self.type_column_DQ],
+    #         name_consulta       = 'Vendas'
+    #         )
 
-    def evolucao_bloqueios_totais_por_mes(self):
-        result = self.consulta.query(self.bloqueio_MK.evolucao_bloqueios_totais_por_mes())
-        result_DataFrame = pd.DataFrame(result) 
-        result_DataFrame.columns = self.bloqueio_MK.name_columns
-        return (result, result_DataFrame, self.bloqueio_MK.name_columns)
-
-    #--------------------------------
-    # Returns Consultas de cancelamento
-    #--------------------------------
-    def cancelamentos_por_cidades(self):
-        result = self.consulta.query(self.cancelamento_MK.cancelamentos_por_cidades())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.cancelamento_MK.name_columns
-        return (result, result_DataFrame, self.cancelamento_MK.name_columns)
-
-    def cancelamentos_geral_por_mes(self):
-        result = self.consulta.query(self.cancelamento_MK.cancelamentos_geral_por_mes())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.cancelamento_MK.name_columns
-        return (result, result_DataFrame, self.cancelamento_MK.name_columns)
+    # #--------------------------------
+    # # Faturamento
+    # #--------------------------------
+    #     print('\nFaturamento')
+    #     self.geral.saves(
+    #         numero_de_querys    = 2,
+    #         querys_sql          = [self.faturamento_MK.faturamento_por_cidades() , self.faturamento_MK.faturamento_geral_por_mes()],
+    #         path_querys         = self.faturamento,
+    #         names_arquivos      = ['faturamento_por_cidades','faturamento_geral_por_mes'],
+    #         names_columns       = [self.type_column_DCV, self.type_column_DV],
+    #         name_consulta       = 'Faturamento'
+    #         )
     
-    #--------------------------------
-    # Returns Consultas de Vendas
-    #--------------------------------
-    def vendas_por_cidades(self):
-        result = self.consulta.query(self.vendas_MK.vendas_por_cidades())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.vendas_MK.name_columns
-        return (result, result_DataFrame, self.vendas_MK.name_columns)
+    # #--------------------------------
+    # # Pagamentos
+    # #--------------------------------
+    #     print('\nPagamentos')
+    #     self.geral.saves(
+    #         numero_de_querys    = 1,
+    #         querys_sql          = [self.pagamentos_MK.pagamentos_geral() ],
+    #         path_querys         = self.pagamento,
+    #         names_arquivos      = ['pagamentos_geral'],
+    #         names_columns       = [self.type_column_DV],
+    #         name_consulta       = 'Pagamentos'
+    #         )
 
-    def vendas_geral_por_mes(self):
-        result = self.consulta.query(self.vendas_MK.vendas_geral_por_mes())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.vendas_MK.name_columns
-        return (result, result_DataFrame, self.vendas_MK.name_columns)
+    # #--------------------------------
+    # # Recebimento
+    # #--------------------------------
+    #     print('\nRecebimento')
+    #     self.geral.saves(
+    #         numero_de_querys    = 2,
+    #         querys_sql          = [self.recebimentos_MK.recebimentos_por_cidades() , self.recebimentos_MK.recebimentos_geral_por_mes()],
+    #         path_querys         = self.recebimento,
+    #         names_arquivos      = ['recebimentos_por_cidades','recebimentos_geral_por_mes'],
+    #         names_columns       = [self.type_column_DCV, self.type_column_DV],
+    #         name_consulta       = 'Recebimento'
+    #         )
 
-    #--------------------------------
-    # Returns Consultas de Faturamento
-    #--------------------------------
-    def faturamento_por_cidades(self):
-        result = self.consulta.query(self.faturamento_MK.faturamento_por_cidades())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.faturamento_MK.name_columns
-        return (result, result_DataFrame, self.faturamento_MK.name_columns)
+    # #--------------------------------
+    # # SPC 
+    # #--------------------------------
+    #     print('\nSPC ')
+    #     self.geral.saves(
+    #         numero_de_querys    = 1,
+    #         querys_sql          = [self.evolucao_spc_MK.cadastros_SPC_mensal()],
+    #         path_querys         = self.spc,
+    #         names_arquivos      = ['cadastros_SPC_mensal'],
+    #         names_columns       = [self.type_column_DV],
+    #         name_consulta       = 'SPC Cadastro Mensal'
+    #         )
 
-    def faturamento_geral_por_mes(self):
-        result = self.consulta.query(self.faturamento_MK.faturamento_geral_por_mes())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.faturamento_MK.name_columns
-        return (result, result_DataFrame, self.faturamento_MK.name_columns)
-    
-    #--------------------------------
-    # Returns Consultas de Pagamentos
-    #--------------------------------
-    def pagamentos_geral(self):
-        result = self.consulta.query(self.pagamentos_MK.pagamentos_geral())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.pagamentos_MK.name_columns
-        return (result, result_DataFrame, self.pagamentos_MK.name_columns)
+    #     self.geral.saves(
+    #         numero_de_querys    = 1,
+    #         querys_sql          = [self.evolucao_spc_MK.retiradas_SPC_mensal()],
+    #         path_querys         = self.spc,
+    #         names_arquivos      = ['retiradas_SPC_mensal'],
+    #         names_columns       = [self.type_column_DV],
+    #         name_consulta       = 'SPC Retiradas Mensal'
+    #         )
 
-    #--------------------------------
-    # Returns Consutas de Recebimento
-    #--------------------------------
-    def recebimentos_por_cidades(self):
-        result = self.consulta.query(self.recebimentos_MK.recebimentos_por_cidades())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.recebimentos_MK.name_columns
-        return (result, result_DataFrame, self.recebimentos_MK.name_columns)
-    
-    def recebimentos_geral_por_mes(self):
-        result = self.consulta.query(self.recebimentos_MK.recebimentos_geral_por_mes())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.recebimentos_MK.name_columns
-        return (result, result_DataFrame, self.recebimentos_MK.name_columns)
+    #     self.geral.saves(
+    #         numero_de_querys    = 1,
+    #         querys_sql          = [self.evolucao_spc_MK.evolucao_cadastros_SPC()],
+    #         path_querys         = self.spc,
+    #         names_arquivos      = ['evolucao_cadastros_SPC'],
+    #         names_columns       = [self.type_column_DV],
+    #         name_consulta       = 'SPC Evolucao Cadastros '
+    #         )
 
-    #--------------------------------
-    #Returns Consultas Evolução SPC
-    #--------------------------------
-    def evolucao_spc_cadastradas(self):
-        result = self.consulta.query(self.evolucao_spc_MK.evolucao_cadastros_SPC())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.evolucao_spc_MK.name_columns
-        return (result, result_DataFrame, self.evolucao_spc_MK.name_columns)
+    #     self.geral.saves(
+    #         numero_de_querys    = 1,
+    #         querys_sql          = [self.evolucao_spc_MK.evolucao_retiradas_SPC()],
+    #         path_querys         = self.spc,
+    #         names_arquivos      = ['evolucao_retiradas_SPC'],
+    #         names_columns       = [self.type_column_DV],
+    #         name_consulta       = 'SPC Evolucao Retiradas '
+    #         )
 
-    def evolucao_spc_retiradas(self):
-        result = self.consulta.query(self.evolucao_spc_MK.evolucao_retiradas_SPC())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.evolucao_spc_MK.name_columns
-        return (result, result_DataFrame, self.evolucao_spc_MK.name_columns)
+    # #--------------------------------
+    # # Inadimplencia
+    # #--------------------------------
+    #     print('\nInadimplencia')
+    #     self.geral.saves(
+    #         numero_de_querys    = 2,
+    #         querys_sql          = [self.indimplencia_MK.inadimplencia_por_cidades() , self.indimplencia_MK.inadimplencia_total_por_mes()],
+    #         path_querys         = self.inadimplencia,
+    #         names_arquivos      = ['inadimplencia_por_cidades','inadimplencia_total_por_mes'],
+    #         names_columns       = [self.type_column_DCV, self.type_column_DV],
+    #         name_consulta       = 'Inadimplencia'
+    #         )
 
-    def spc_cadastradas_mensal(self):
-        result = self.consulta.query(self.evolucao_spc_MK.cadastros_SPC_mensal())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.evolucao_spc_MK.name_columns
-        return (result, result_DataFrame, self.evolucao_spc_MK.name_columns)
-
-    def spc_retiradas_mensal(self):
-        result = self.consulta.query(self.evolucao_spc_MK.retiradas_SPC_mensal())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.evolucao_spc_MK.name_columns
-        return (result, result_DataFrame, self.evolucao_spc_MK.name_columns)
-
-    #--------------------------------
-    #Returns Evolução de Base
-    #--------------------------------
-    def evolucao_contratos_cancelados_por_cidades(self):
-        result = self.consulta.query(self.evulacao_de_base_MK.evolucao_contratos_cancelados_por_cidades())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.evulacao_de_base_MK.name_columns
-        return (result, result_DataFrame, self.evulacao_de_base_MK.name_columns)
-
-    def evolucao_contratos_criados_por_cidades(self):
-        result = self.consulta.query(self.evulacao_de_base_MK.evolucao_contratos_criados_por_cidades())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.evulacao_de_base_MK.name_columns
-        return (result, result_DataFrame, self.evulacao_de_base_MK.name_columns)
-
-    def evolucao_contratos_criados_e_cancelados_totais(self):
-        result = self.consulta.query(self.evulacao_de_base_MK.evolucao_contratos_criados_e_cancelados_totais())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.evulacao_de_base_MK.name_columns
-        return (result, result_DataFrame, self.evulacao_de_base_MK.name_columns)
-
+    # #--------------------------------
+    # # Evolucao Inadimplencia
+    # #--------------------------------
+    #     print('\nEvolucao Inadimplencia')
+    #     self.geral.saves(
+    #         numero_de_querys    = 2,
+    #         querys_sql          = [self.indimplencia_MK.evolucao_inadimplencia_por_cidade() , self.indimplencia_MK.evolucao_inadimplencia_totais_por_mes()],
+    #         path_querys         = self.inadimplencia,
+    #         names_arquivos      = ['evolucao_inadimplencia_por_cidade','evolucao_inadimplencia_totais_por_mes'],
+    #         names_columns       = [self.type_column_DCV, self.type_column_DV],
+    #         name_consulta       = 'Evolucao Inadimplencia'
+    #         )
 
     #--------------------------------
-    #Returns Evolução de Base Sem Migracao
+    # Evolução de Base
     #--------------------------------
-    def evolucao_contratos_cancelados_por_cidades_sem_migracao(self):
-        result = self.consulta.query(self.evolucao_base_sem_migracao_MK.evolucao_contratos_cancelados_por_cidades())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.evolucao_base_sem_migracao_MK.name_columns
-        return (result, result_DataFrame, self.evolucao_base_sem_migracao_MK.name_columns)
-
-    def evolucao_contratos_criados_por_cidades_sem_migracao(self):
-        result = self.consulta.query(self.evolucao_base_sem_migracao_MK.evolucao_contratos_criados_por_cidades())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.evolucao_base_sem_migracao_MK.name_columns
-        return (result, result_DataFrame, self.evolucao_base_sem_migracao_MK.name_columns)
-
-    def evolucao_contratos_criados_e_cancelados_totais_sem_migracao(self):
-        result = self.consulta.query(self.evolucao_base_sem_migracao_MK.evolucao_contratos_criados_e_cancelados_totais())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.evolucao_base_sem_migracao_MK.name_columns
-        return (result, result_DataFrame, self.evolucao_base_sem_migracao_MK.name_columns)
+        print('\nEvolução de Base')    
+        self.geral.saves(
+            numero_de_querys     = 3,
+            querys_sql           = [self.evulacao_de_base_MK.evolucao_contratos_criados_por_cidades() , self.evulacao_de_base_MK.evolucao_contratos_cancelados_por_cidades() , self.evulacao_de_base_MK.evolucao_contratos_criados_e_cancelados_totais()],
+            path_querys          = self.evolucao_base,
+            names_arquivos       = ['evolucao_contratos_criados_por_cidades','evolucao_contratos_cancelados_por_cidades', 'evolucao_contratos_criados_e_cancelados_totais'],
+            names_columns        = [self.type_column_DCQ, self.type_column_DCQ, self.type_column_DQQ,['Data','Cidade', 'Contratos_Criados', 'Constratos_Cancelados', 'Contratos_Ativos']],
+            name_consulta        = 'Evolucao de Base'
+            )
 
     #--------------------------------
-    #Returns Inadimplencia
+    # Evolução de Base Sem Migracao
     #--------------------------------
-    def inadimplencia_total_por_mes(self):
-        result = self.consulta.query(self.indimplencia_MK.inadimplencia_total_por_mes())
-        result_DataFrame = pd.DataFrame(result)  
-        result_DataFrame.columns = self.indimplencia_MK.name_columns
-        return (result, result_DataFrame, self.indimplencia_MK.name_columns)
-
-    def inadimplencia_por_cidades(self):
-        result = self.consulta.query(self.indimplencia_MK.inadimplencia_por_cidades())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.indimplencia_MK.name_columns
-        return (result, result_DataFrame, self.indimplencia_MK.name_columns)
-
-    def evolucao_inadimplencia_por_cidade(self):
-        result = self.consulta.query(self.indimplencia_MK.evolucao_inadimplencia_por_cidade())
-        result_DataFrame = pd.DataFrame(result)
-        result_DataFrame.columns = self.indimplencia_MK.name_columns
-        return (result, result_DataFrame, self.indimplencia_MK.name_columns)
-
-    def evolucao_inadimplencia_totais_por_mes(self):
-        result = self.consulta.query(self.indimplencia_MK.evolucao_inadimplencia_totais_por_mes())
-        result_DataFrame = pd.DataFrame(result) 
-        result_DataFrame.columns = self.indimplencia_MK.name_columns
-        return (result, result_DataFrame, self.indimplencia_MK.name_columns)
+        print('\nEvolução de Base Sem Migracao')     
+        self.geral.saves(
+            numero_de_querys     = 3,
+            querys_sql           = [self.evolucao_base_sem_migracao_MK.evolucao_contratos_criados_por_cidades() , self.evolucao_base_sem_migracao_MK.evolucao_contratos_cancelados_por_cidades() , self.evolucao_base_sem_migracao_MK.evolucao_contratos_criados_e_cancelados_totais()],
+            path_querys          = self.evolucao_base_sem_migracao,
+            names_arquivos       = ['evolucao_contratos_criados_por_cidades','evolucao_contratos_cancelados_por_cidades', 'evolucao_contratos_criados_e_cancelados_totais'],
+            names_columns        = [self.type_column_DCQ, self.type_column_DCQ, self.type_column_DQQ, ['Data','Cidade', 'Contratos_Criados', 'Constratos_Cancelados', 'Contratos_Ativos']],
+            name_consulta        = 'Evolucao de Base Sem Migracao'
+            )

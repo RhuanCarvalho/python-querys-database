@@ -64,7 +64,6 @@ class Querys_de_Pagamentos_MK:
             else:
                 complete_query = complete_query + simple_query + '''ORDER BY 1;'''
 
-        Save_to_SQL.save_querys(complete_query, 'pagamento', 'pagamentos_geral')
         return str(complete_query)
         
     

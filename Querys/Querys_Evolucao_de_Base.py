@@ -83,7 +83,6 @@ class Querys_Evolucao_de_Base_MK:
                 complete_query = complete_query + simple_query + '''ORDER BY 2 ASC, 1 ASC;'''
 
 
-        Save_to_SQL.save_querys(complete_query, 'evolucao_base', 'evolucao_contratos_cancelados_por_cidades')
         return str(complete_query)
 
     def evolucao_contratos_criados_por_cidades(self): # MK - OK OK OK
@@ -155,7 +154,6 @@ class Querys_Evolucao_de_Base_MK:
 
 
 
-        Save_to_SQL.save_querys(complete_query, 'evolucao_base', 'evolucao_contratos_criados_por_cidades')
         return str(complete_query)
 
     def evolucao_contratos_criados_e_cancelados_totais(self): # MK - OK OK OK
@@ -223,7 +221,6 @@ class Querys_Evolucao_de_Base_MK:
 
 
 
-        Save_to_SQL.save_querys(complete_query, 'evolucao_base', 'evolucao_contratos_criados_e_cancelados_totais')
         return str(complete_query)
 
 

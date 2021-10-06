@@ -78,7 +78,6 @@ class Querys_de_Vendas_MK:
             else:
                 complete_query = complete_query + simple_query + '''ORDER BY 2 ASC, 1 ASC;'''
 
-        Save_to_SQL.save_querys(complete_query, 'venda', 'vendas_por_cidades')
         return str(complete_query)
         
     def vendas_geral_por_mes(self): # MK - OK OK
@@ -132,5 +131,4 @@ class Querys_de_Vendas_MK:
             else:
                 complete_query = complete_query + simple_query + '''ORDER BY 1;'''
 
-        Save_to_SQL.save_querys(complete_query, 'venda', 'vendas_geral_por_mes')
         return str(complete_query)

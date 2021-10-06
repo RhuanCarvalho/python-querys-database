@@ -77,7 +77,6 @@ class Querys_de_Recebimentos_MK:
             else:
                 complete_query = complete_query + simple_query + '''ORDER BY 2, 1;'''
 
-        Save_to_SQL.save_querys(complete_query, 'recebimento', 'recebimentos_por_cidades')
         return str(complete_query)
         
     def recebimentos_geral_por_mes(self): # MK - OK OK
@@ -130,5 +129,4 @@ class Querys_de_Recebimentos_MK:
             else:
                 complete_query = complete_query + simple_query + '''ORDER BY 1;'''
 
-        Save_to_SQL.save_querys(complete_query, 'recebimento', 'recebimentos_geral_por_mes')
         return str(complete_query)

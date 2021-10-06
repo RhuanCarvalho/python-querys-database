@@ -66,7 +66,6 @@ class Querys_SPC_Cadastros_e_Retiradas_MK:
 
 
 
-        Save_to_SQL.save_querys(complete_query, 'spc', 'cadastros_SPC_mensal')
         return str(complete_query)
 
     def retiradas_SPC_mensal(self): # MK - OK OK
@@ -121,7 +120,6 @@ class Querys_SPC_Cadastros_e_Retiradas_MK:
 
 
 
-        Save_to_SQL.save_querys(complete_query, 'spc', 'retiradas_SPC_mensal')
         return str(complete_query)
 
     def evolucao_cadastros_SPC(self): # MK - OK OK
@@ -179,7 +177,6 @@ class Querys_SPC_Cadastros_e_Retiradas_MK:
 
 
 
-        Save_to_SQL.save_querys(complete_query, 'spc', 'evolucao_cadastros_SPC')
         return str(complete_query)
 
     def evolucao_retiradas_SPC(self): # MK - OK OK
@@ -240,6 +237,5 @@ class Querys_SPC_Cadastros_e_Retiradas_MK:
 
 
 
-        Save_to_SQL.save_querys(complete_query, 'spc', 'evolucao_retiradas_SPC')
         return str(complete_query)
 

@@ -1,8 +1,10 @@
 from Env_Vars import Env_Vars
 
 class Save_to_SQL:
+    def __init__(self):
+        pass
     
-    def save_querys(complete_query, path_save, name_arq):
+    def save_querys(self, complete_query, path_save, name_arq):
         '''
         Função para salvar a string gerada em arquivos .sql
 

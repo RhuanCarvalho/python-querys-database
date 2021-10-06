@@ -107,10 +107,6 @@ class Save_to_Excel:
 
         file.close()
 
-        self.save_.excel_to_pdf(
-            name_arq_with_extensao,
-            name_consulta
-        )
 
     def Create_Simple_return(self, relatorio, name_arq_with_extensao, name_columns, name_consulta ):
         aux = 2
@@ -175,10 +171,6 @@ class Save_to_Excel:
 
         file.close()
 
-        self.save_.excel_to_pdf(
-            name_arq_with_extensao,
-            name_consulta
-        )
 
     def Create_evolucao_base(self, relatorio_criados, relatorio_cancelados, relatorio_totais, name_arq_with_extensao, name_columns, name_consulta):
         aux = 3
@@ -274,7 +266,4 @@ class Save_to_Excel:
 
         file.close()
 
-        self.save_.excel_to_pdf(
-            name_arq_with_extensao,
-            name_consulta
-        )
+

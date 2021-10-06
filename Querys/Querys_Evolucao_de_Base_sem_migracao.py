@@ -88,7 +88,6 @@ class Querys_Evolucao_de_Base_sem_migracao_MK:
                 complete_query = complete_query + simple_query + '''ORDER BY 2 ASC, 1 ASC;'''
 
 
-        Save_to_SQL.save_querys(complete_query, 'evolucao_base_sem_migracao', 'evolucao_contratos_cancelados_por_cidades_sem_migracao')
         return str(complete_query)
 
     def evolucao_contratos_criados_por_cidades(self): 
@@ -167,7 +166,6 @@ class Querys_Evolucao_de_Base_sem_migracao_MK:
 
 
 
-        Save_to_SQL.save_querys(complete_query, 'evolucao_base_sem_migracao', 'evolucao_contratos_criados_por_cidades_sem_migracao')
         return str(complete_query)
 
     def evolucao_contratos_criados_e_cancelados_totais(self): 
@@ -253,7 +251,6 @@ class Querys_Evolucao_de_Base_sem_migracao_MK:
 
 
 
-        Save_to_SQL.save_querys(complete_query, 'evolucao_base_sem_migracao', 'evolucao_contratos_criados_e_cancelados_totais_sem_migracao')
         return str(complete_query)
 
 

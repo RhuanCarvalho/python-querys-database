@@ -9,9 +9,9 @@ class Env_Vars:
         self.SAVE_QUERYS_MK = str(os.getenv('DEFAULT_SAVE_QUERYS_MK'))
         self.SAVE_EXCEL_MK = str(os.getenv('DEFAULT_SAVE_EXCEL_MK'))
         self.SAVE_PDF_MK = str(os.getenv('DEFAULT_SAVE_PDF_MK'))
+        self.SAVE_CSV_MK = str(os.getenv('DEFAULT_SAVE_CSV_MK'))
         
         self.DEFAULT_INIT_DATE_RANGE = self.default_init_date_range()
-
 
 
     def DB_MK(self):
