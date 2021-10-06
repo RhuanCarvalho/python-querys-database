@@ -235,7 +235,7 @@ class Resultado_Consultas_MK:
             numero_de_querys     = 3,
             querys_sql           = [self.evolucao_base_sem_migracao_MK.evolucao_contratos_criados_por_cidades() , self.evolucao_base_sem_migracao_MK.evolucao_contratos_cancelados_por_cidades() , self.evolucao_base_sem_migracao_MK.evolucao_contratos_criados_e_cancelados_totais()],
             path_querys          = self.evolucao_base_sem_migracao,
-            names_arquivos       = ['evolucao_contratos_criados_por_cidades','evolucao_contratos_cancelados_por_cidades', 'evolucao_contratos_criados_e_cancelados_totais'],
+            names_arquivos       = ['evolucao_contratos_criados_por_cidades_sem_migracao','evolucao_contratos_cancelados_por_cidades_sem_migracao', 'evolucao_contratos_criados_e_cancelados_totais_sem_migracao'],
             names_columns        = [self.type_column_DCQ, self.type_column_DCQ, self.type_column_DQQ, ['Data','Cidade', 'Contratos_Criados', 'Constratos_Cancelados', 'Contratos_Ativos']],
             name_consulta        = 'Evolucao de Base Sem Migracao'
             )
