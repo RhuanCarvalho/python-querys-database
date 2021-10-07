@@ -63,7 +63,9 @@ class Resultado_Consultas_MK:
         print('\nBloqueio')
         self.geral.saves(
             numero_de_querys    = 2,
-            querys_sql          = [self.bloqueio_MK.bloqueios_por_cidades() , self.bloqueio_MK.bloqueios_total_por_mes()],
+            querys_sql          = [
+                self.bloqueio_MK.bloqueios_por_cidades(),
+                self.bloqueio_MK.bloqueios_total_por_mes()],
             path_querys         = self.bloqueio,
             names_arquivos      = ['bloqueios_por_cidades','bloqueios_total_por_mes'],
             names_columns       = [self.type_column_DCQ, self.type_column_DQ],
@@ -76,7 +78,9 @@ class Resultado_Consultas_MK:
         print('\nEvolucao Bloqueio')
         self.geral.saves(
             numero_de_querys    = 2,
-            querys_sql          = [self.bloqueio_MK.evolucao_bloqueios_por_cidade() , self.bloqueio_MK.evolucao_bloqueios_totais_por_mes()],
+            querys_sql          = [
+                self.bloqueio_MK.evolucao_bloqueios_por_cidade(), 
+                self.bloqueio_MK.evolucao_bloqueios_totais_por_mes()],
             path_querys         = self.bloqueio,
             names_arquivos      = ['evolucao_bloqueios_por_cidade','evolucao_bloqueios_totais_por_mes'],
             names_columns       = [self.type_column_DCQ, self.type_column_DQ],
@@ -89,7 +93,9 @@ class Resultado_Consultas_MK:
         print('\nCancelamento')
         self.geral.saves(
             numero_de_querys    = 2,
-            querys_sql          = [self.cancelamento_MK.cancelamentos_por_cidades() , self.cancelamento_MK.cancelamentos_geral_por_mes()],
+            querys_sql          = [
+                self.cancelamento_MK.cancelamentos_por_cidades(),
+                self.cancelamento_MK.cancelamentos_geral_por_mes()],
             path_querys         = self.cancelamento,
             names_arquivos      = ['cancelamentos_por_cidades','cancelamentos_geral_por_mes'],
             names_columns       = [self.type_column_DCQ, self.type_column_DQ],
@@ -102,7 +108,9 @@ class Resultado_Consultas_MK:
         print('\nVendas')
         self.geral.saves(
             numero_de_querys    = 2,
-            querys_sql          = [self.vendas_MK.vendas_por_cidades() , self.vendas_MK.vendas_geral_por_mes()],
+            querys_sql          = [
+                self.vendas_MK.vendas_por_cidades(), 
+                self.vendas_MK.vendas_geral_por_mes()],
             path_querys         = self.venda,
             names_arquivos      = ['vendas_por_cidades','vendas_geral_por_mes'],
             names_columns       = [self.type_column_DCQ, self.type_column_DQ],
@@ -115,7 +123,9 @@ class Resultado_Consultas_MK:
         print('\nFaturamento')
         self.geral.saves(
             numero_de_querys    = 2,
-            querys_sql          = [self.faturamento_MK.faturamento_por_cidades() , self.faturamento_MK.faturamento_geral_por_mes()],
+            querys_sql          = [
+                self.faturamento_MK.faturamento_por_cidades(), 
+                self.faturamento_MK.faturamento_geral_por_mes()],
             path_querys         = self.faturamento,
             names_arquivos      = ['faturamento_por_cidades','faturamento_geral_por_mes'],
             names_columns       = [self.type_column_DCV, self.type_column_DV],
@@ -128,7 +138,7 @@ class Resultado_Consultas_MK:
         print('\nPagamentos')
         self.geral.saves(
             numero_de_querys    = 1,
-            querys_sql          = [self.pagamentos_MK.pagamentos_geral() ],
+            querys_sql          = [self.pagamentos_MK.pagamentos_geral()],
             path_querys         = self.pagamento,
             names_arquivos      = ['pagamentos_geral'],
             names_columns       = [self.type_column_DV],
@@ -141,7 +151,9 @@ class Resultado_Consultas_MK:
         print('\nRecebimento')
         self.geral.saves(
             numero_de_querys    = 2,
-            querys_sql          = [self.recebimentos_MK.recebimentos_por_cidades() , self.recebimentos_MK.recebimentos_geral_por_mes()],
+            querys_sql          = [
+                self.recebimentos_MK.recebimentos_por_cidades(), 
+                self.recebimentos_MK.recebimentos_geral_por_mes()],
             path_querys         = self.recebimento,
             names_arquivos      = ['recebimentos_por_cidades','recebimentos_geral_por_mes'],
             names_columns       = [self.type_column_DCV, self.type_column_DV],
@@ -194,7 +206,9 @@ class Resultado_Consultas_MK:
         print('\nInadimplencia')
         self.geral.saves(
             numero_de_querys    = 2,
-            querys_sql          = [self.indimplencia_MK.inadimplencia_por_cidades() , self.indimplencia_MK.inadimplencia_total_por_mes()],
+            querys_sql          = [
+                self.indimplencia_MK.inadimplencia_por_cidades(), 
+                self.indimplencia_MK.inadimplencia_total_por_mes()],
             path_querys         = self.inadimplencia,
             names_arquivos      = ['inadimplencia_por_cidades','inadimplencia_total_por_mes'],
             names_columns       = [self.type_column_DCV, self.type_column_DV],
@@ -207,7 +221,9 @@ class Resultado_Consultas_MK:
         print('\nEvolucao Inadimplencia')
         self.geral.saves(
             numero_de_querys    = 2,
-            querys_sql          = [self.indimplencia_MK.evolucao_inadimplencia_por_cidade() , self.indimplencia_MK.evolucao_inadimplencia_totais_por_mes()],
+            querys_sql          = [
+                self.indimplencia_MK.evolucao_inadimplencia_por_cidade(), 
+                self.indimplencia_MK.evolucao_inadimplencia_totais_por_mes()],
             path_querys         = self.inadimplencia,
             names_arquivos      = ['evolucao_inadimplencia_por_cidade','evolucao_inadimplencia_totais_por_mes'],
             names_columns       = [self.type_column_DCV, self.type_column_DV],
@@ -220,7 +236,10 @@ class Resultado_Consultas_MK:
         print('\nEvolução de Base')    
         self.geral.saves(
             numero_de_querys     = 3,
-            querys_sql           = [self.evulacao_de_base_MK.evolucao_contratos_criados_por_cidades() , self.evulacao_de_base_MK.evolucao_contratos_cancelados_por_cidades() , self.evulacao_de_base_MK.evolucao_contratos_criados_e_cancelados_totais()],
+            querys_sql           = [
+                self.evulacao_de_base_MK.evolucao_contratos_criados_por_cidades(), 
+                self.evulacao_de_base_MK.evolucao_contratos_cancelados_por_cidades(), 
+                self.evulacao_de_base_MK.evolucao_contratos_criados_e_cancelados_totais()],
             path_querys          = self.evolucao_base,
             names_arquivos       = ['evolucao_contratos_criados_por_cidades','evolucao_contratos_cancelados_por_cidades', 'evolucao_contratos_criados_e_cancelados_totais'],
             names_columns        = [self.type_column_DCQ, self.type_column_DCQ, self.type_column_DQQ,['Data','Cidade', 'Contratos_Criados', 'Constratos_Cancelados', 'Contratos_Ativos']],
@@ -233,7 +252,10 @@ class Resultado_Consultas_MK:
         print('\nEvolução de Base Sem Migracao')     
         self.geral.saves(
             numero_de_querys     = 3,
-            querys_sql           = [self.evolucao_base_sem_migracao_MK.evolucao_contratos_criados_por_cidades() , self.evolucao_base_sem_migracao_MK.evolucao_contratos_cancelados_por_cidades() , self.evolucao_base_sem_migracao_MK.evolucao_contratos_criados_e_cancelados_totais()],
+            querys_sql           = [
+                self.evolucao_base_sem_migracao_MK.evolucao_contratos_criados_por_cidades(), 
+                self.evolucao_base_sem_migracao_MK.evolucao_contratos_cancelados_por_cidades(), 
+                self.evolucao_base_sem_migracao_MK.evolucao_contratos_criados_e_cancelados_totais()],
             path_querys          = self.evolucao_base_sem_migracao,
             names_arquivos       = ['evolucao_contratos_criados_por_cidades_sem_migracao','evolucao_contratos_cancelados_por_cidades_sem_migracao', 'evolucao_contratos_criados_e_cancelados_totais_sem_migracao'],
             names_columns        = [self.type_column_DCQ, self.type_column_DCQ, self.type_column_DQQ, ['Data','Cidade', 'Contratos_Criados', 'Constratos_Cancelados', 'Contratos_Ativos']],
