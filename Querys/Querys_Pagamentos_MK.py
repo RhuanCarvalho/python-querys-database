@@ -3,14 +3,13 @@ from Consultas.Get_Date import Get_Date
 class Querys_de_Pagamentos_MK:
 
     def __init__(self):
-
         # -----------------------------------------------------
         #Config Periodo de Consultas
         self.dates_ = Get_Date( type_date = 1 )
         # -----------------------------------------------------
         
 
-    def pagamentos_geral(self): # MK - OK OK
+    def pagamentos_geral(self): 
         
         # Variaveis 
         # ---------------------------

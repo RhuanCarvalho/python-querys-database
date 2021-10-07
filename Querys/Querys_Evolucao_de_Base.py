@@ -5,14 +5,13 @@ from Consultas.Get_Date import Get_Date
 class Querys_Evolucao_de_Base_MK:
 
     def __init__(self):
-
         # -----------------------------------------------------
         #Config Periodo de Consultas
         self.dates_ = Get_Date( type_date = 1 )
         # -----------------------------------------------------
               
 
-    def evolucao_contratos_cancelados_por_cidades(self): # MK - OK OK OK
+    def evolucao_contratos_cancelados_por_cidades(self): 
 
         # Variaveis
         # -------------------------
@@ -79,7 +78,7 @@ class Querys_Evolucao_de_Base_MK:
 
         return str(complete_query)
 
-    def evolucao_contratos_criados_por_cidades(self): # MK - OK OK OK
+    def evolucao_contratos_criados_por_cidades(self): 
 
         # Variaveis
         # -------------------------
@@ -149,7 +148,7 @@ class Querys_Evolucao_de_Base_MK:
 
         return str(complete_query)
 
-    def evolucao_contratos_criados_e_cancelados_totais(self): # MK - OK OK OK
+    def evolucao_contratos_criados_e_cancelados_totais(self): 
 
         # Variaveis
         # -------------------------

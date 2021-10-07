@@ -5,7 +5,6 @@ from Consultas.Get_Date import Get_Date
 class Querys_Evolucao_de_Base_sem_migracao_MK:
 
     def __init__(self):
-
         # -----------------------------------------------------
         #Config Periodo de Consultas
         self.dates_ = Get_Date( type_date = 1 )

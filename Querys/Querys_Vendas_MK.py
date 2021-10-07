@@ -9,7 +9,7 @@ class Querys_de_Vendas_MK:
         # -----------------------------------------------------
 
 
-    def vendas_por_cidades(self): # MK - OK OK
+    def vendas_por_cidades(self): 
         
         # Variaveis 
         # ---------------------------
@@ -74,7 +74,7 @@ class Querys_de_Vendas_MK:
 
         return str(complete_query)
         
-    def vendas_geral_por_mes(self): # MK - OK OK
+    def vendas_geral_por_mes(self): 
         
         # Variaveis 
         # ---------------------------

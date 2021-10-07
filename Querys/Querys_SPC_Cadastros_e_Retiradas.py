@@ -5,14 +5,13 @@ from Consultas.Get_Date import Get_Date
 class Querys_SPC_Cadastros_e_Retiradas_MK:
 
     def __init__(self):
-
         # -----------------------------------------------------
         #Config Periodo de Consultas
         self.dates_ = Get_Date( type_date = 1 )
         # -----------------------------------------------------
         
 
-    def cadastros_SPC_mensal(self): # MK - OK OK
+    def cadastros_SPC_mensal(self): 
 
         # Variaveis
         # -------------------------
@@ -63,7 +62,7 @@ class Querys_SPC_Cadastros_e_Retiradas_MK:
 
         return str(complete_query)
 
-    def retiradas_SPC_mensal(self): # MK - OK OK
+    def retiradas_SPC_mensal(self): 
 
         # Variaveis
         # -------------------------
@@ -116,7 +115,7 @@ class Querys_SPC_Cadastros_e_Retiradas_MK:
 
         return str(complete_query)
 
-    def evolucao_cadastros_SPC(self): # MK - OK OK
+    def evolucao_cadastros_SPC(self): 
 
         # Variaveis
         # -------------------------
@@ -172,7 +171,7 @@ class Querys_SPC_Cadastros_e_Retiradas_MK:
 
         return str(complete_query)
 
-    def evolucao_retiradas_SPC(self): # MK - OK OK
+    def evolucao_retiradas_SPC(self): 
 
         # Variaveis
         # -------------------------
