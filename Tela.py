@@ -1,4 +1,4 @@
-import PySimpleGUI as sg, pandas as pd, os
+import PySimpleGUI as sg, pandas as pd
 
 
 class Tela:
