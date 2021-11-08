@@ -1,8 +1,6 @@
 import psycopg2 as db
 from Env_Vars import Env_Vars
 
-
-
 class Configs:
     def __init__(self):
         dbs = Env_Vars()

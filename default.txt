@@ -1,2 +1,2 @@
 ,Bloqueio,Evolucao_Bloqueio,Cancelamento,Vendas,Faturamento,Pagamentos,Recebimento,SPC,Inadimplencia,Evolucao_Inadimplencia,Evolucao_de_Base,Evolucao_de_Base_Sem_Migracao
-0,1,0,0,0,0,0,0,0,0,0,0,0
+0,1,1,1,1,1,1,1,1,1,1,1,1

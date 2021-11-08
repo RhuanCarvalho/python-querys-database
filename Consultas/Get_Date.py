@@ -4,35 +4,40 @@ import calendar
 from Env_Vars import Env_Vars
 
 
-
 class Get_Date:
 
-    def __init__(self, type_date ,forc_ano=None, forc_mes=None):
+    def __init__(self, type_date, forc_ano=None, forc_mes=None):
+        '''
+        * Varriáveis obrigatórias:
+            - type_date (int): 1 para formato date %d/%m/%Y ou 2 para formato date %Y-%m-%d
+        * Variáveis opcionais: 
+            - forc_ano (int): passar ano caso deseje mudar o ano inicial das consultas.
+            - forc_mes (int): passar mês caso deseje mudar o mês inicial das consultas.
+        '''
 
         default_date = Env_Vars()
         day_init, mont_init, year_init = default_date.DEFAULT_INIT_DATE_RANGE
 
         if forc_ano != None and forc_mes != None:
-                # Get
-            #-------------------------------------------
+            # Get
+            # -------------------------------------------
             # Get Mês
             self.mes_range = forc_mes
             # Get Ano
-            self.ano_range =  forc_ano        
+            self.ano_range = forc_ano
         else:
             # Get
-            #-------------------------------------------
+            # -------------------------------------------
             # Get Mês
             self.mes_range = int(mont_init)
             # Get Ano
-            self.ano_range =  int(year_init)
-            #-------------------------------------------
+            self.ano_range = int(year_init)
+            # -------------------------------------------
 
         if type_date == 1:
             self.style_date = '%d/%m/%Y'
         elif type_date == 2:
             self.style_date = '%Y-%m-%d'
-
 
         self.list = []
         self.salve = []
@@ -41,26 +46,30 @@ class Get_Date:
         self.range_meses = self.count_range()
 
     def generate_date(self):
-
+        '''
+        * O Retorno dessa função é um DataFrame com as 
+        colunas ["Data_Inicial", "Data_Final", "Periodo"] do período 
+        fornecido até o ultimo mês fechado. 
+        '''
 
         # Atual
-        #-------------------------------------------
+        # -------------------------------------------
         # Mês Atual
         month_today = int(datetime.now().strftime('%m'))
         # Ano Atual
         year_today = int(datetime.now().strftime('%Y'))
-        #-------------------------------------------
+        # -------------------------------------------
 
         while True:
 
             last_day_month = calendar.monthrange(self.ano_range, self.mes_range)[-1]
 
-            data_inicial = date(self.ano_range, self.mes_range, 1) #.strftime('%Y/%m/%d') # Modificado formato
-            data_final = date(self.ano_range, self.mes_range, last_day_month) # Formato padrão
-            period = date(self.ano_range, self.mes_range, 1).strftime('%m/%Y') # Formato periodo
+            # .strftime('%Y/%m/%d') # Modificado formato
+            data_inicial = date(self.ano_range, self.mes_range, 1)
+            data_final = date(self.ano_range, self.mes_range, last_day_month)  # Formato padrão
+            period = date(self.ano_range, self.mes_range, 1).strftime('%m/%Y')  # Formato periodo
 
             # print('Inicio :|{}| Fim: |{}| MÊS: |{}|'.format(data_inicial, data_final, period))
-
 
             # Count
             # ---------------------------------------------------------------------
@@ -70,7 +79,6 @@ class Get_Date:
                 self.mes_range = 1
                 self.ano_range += 1
             # ---------------------------------------------------------------------
-
 
             # Salve Dates
             # ---------------------------------------------------------------------
@@ -85,11 +93,19 @@ class Get_Date:
             # ---------------------------------------------------------------------
 
         # return dataFrame list of date
-        df = pd.DataFrame(self.salve, columns=["Data_Inicial","Data_Final","Periodo"])
+        df = pd.DataFrame(self.salve, columns=["Data_Inicial", "Data_Final", "Periodo"])
 
         return df
 
     def dates_personalizadas(self, index_):
+        '''
+        * O Retorno dessa função é um DataFrame com as 
+        colunas ["Data_Inicial", "Data_Final", "Periodo"] 
+        onde as datas estão personalidas no estilo de formato 
+        da data fornecido pela variável da classe 'type_date', 
+        onde a seleção da data é feita através da variável 'index_'
+        desta função.
+        '''
 
         # função para personalizar o formato de data para ser realiozado a pesquisa
 
@@ -100,4 +116,8 @@ class Get_Date:
         return (inicio, final, periodo)
 
     def count_range(self):
+        '''
+        * O retorno dessa função é o valor do tamanha do 
+        DataFrame fornecido pelas função 'dates_personalizadas'.
+        '''
         return len(self.dates_.Periodo)

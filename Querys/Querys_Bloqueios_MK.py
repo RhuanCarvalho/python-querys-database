@@ -1,134 +1,142 @@
 from datetime import date
 from Consultas.Get_Date import Get_Date
 
+
 class Querys_de_Bloqueio_MK:
 
     def __init__(self):
         # -----------------------------------------------------
-        #Config Periodo de Consultas
-        self.dates_ = Get_Date( type_date = 1 )
+        # Config Periodo de Consultas
+        self.dates_ = Get_Date(type_date=1)
         # -----------------------------------------------------
-        
 
     def bloqueios_por_cidades(self):
-        
-        # Variaveis 
+
+        # Variaveis
         # ---------------------------
         complete_query = ''
         # ---------------------------
 
         for x in range(self.dates_.range_meses):
-            
+
             # Variaveis dates
             # --------------------------------------------------
             inicio, final, periodo = self.dates_.dates_personalizadas(x)
             # --------------------------------------------------
 
             simple_query = '''
-            
-            SELECT
-                case when (conexao.ultimo_bloqueio_auto between '{}' AND '{}') THEN TO_DATE('{}', 'MM/YYYY') end as dt_bloqueio,
-                case when (upper(cidade.cidade) LIKE '%PATR%') THEN 'PATROCINIO'
-                when (upper(cidade.cidade) LIKE '%PATO%') THEN 'PATOS DE MINAS'
-                when (upper(cidade.cidade) LIKE '%GUIM%') THEN 'GUIMARANIA'
-                when (upper(cidade.cidade) LIKE '%ABAD%') THEN 'ABADIA DOS DOURADOS'
-                when (upper(cidade.cidade) LIKE '%IRA%') THEN 'IRAI DE MINAS'
-                when (upper(cidade.cidade) LIKE '%CRUZ%') THEN 'CRUZEIRO DA FORTALEZA'
-                when (upper(cidade.cidade) LIKE '%VARJ%') THEN 'VARJAO DE MINAS'
-                when (upper(cidade.cidade) LIKE '%OLEG%') THEN 'PRESIDENTE OLEGARIO'
-                when (upper(cidade.cidade) LIKE '%MARIAS%') THEN 'TRES MARIAS'
-                when (upper(cidade.cidade) LIKE '%JOAO%') THEN 'JOAO PINHEIRO'
-                when (upper(cidade.cidade) LIKE '%LAGOA%') THEN 'LAGOA FORMOSA'
-                ELSE 'OUTROS'
-            end as cidade,
-                    count(contrato.codcontrato)
-                    
-            from public.mk_contratos contrato
-            inner join public.mk_pessoas pessoa on (pessoa.codpessoa = contrato.cliente)
-            inner join public.mk_cidades cidade on (pessoa.codcidade = cidade.codcidade)
-            inner join public.mk_conexoes conexao on (contrato.codcontrato = conexao.contrato)
 
-            where contrato.cancelado = 'N'
-            and (contrato.suspenso = 'N' OR contrato.suspenso IS NULL)
-            and conexao.tipo_conexao = 1
-            and conexao.conexao_bloqueada = 'S'
-            and conexao.ultimo_bloqueio_auto between '{}' AND '{}'
+SELECT 
+    CASE 
+        WHEN ( conexao.ultimo_bloqueio_auto BETWEEN '{}' AND '{}') THEN TO_DATE('{}', 'MM/YYYY') END AS dt_bloqueio,
+    CASE 
+        WHEN (upper(cidade.cidade) LIKE '%PATR%')   THEN 'PATROCINIO'
+        WHEN (upper(cidade.cidade) LIKE '%PATO%')   THEN 'PATOS DE MINAS'
+        WHEN (upper(cidade.cidade) LIKE '%GUIM%')   THEN 'GUIMARANIA'
+        WHEN (upper(cidade.cidade) LIKE '%ABAD%')   THEN 'ABADIA DOS DOURADOS'
+        WHEN (upper(cidade.cidade) LIKE '%IRA%')    THEN 'IRAI DE MINAS'
+        WHEN (upper(cidade.cidade) LIKE '%CRUZ%')   THEN 'CRUZEIRO DA FORTALEZA'
+        WHEN (upper(cidade.cidade) LIKE '%VARJ%')   THEN 'VARJAO DE MINAS'
+        WHEN (upper(cidade.cidade) LIKE '%OLEG%')   THEN 'PRESIDENTE OLEGARIO'
+        WHEN (upper(cidade.cidade) LIKE '%MARIAS%') THEN 'TRES MARIAS'
+        WHEN (upper(cidade.cidade) LIKE '%JOAO%')   THEN 'JOAO PINHEIRO'
+        WHEN (upper(cidade.cidade) LIKE '%LAGOA%')  THEN 'LAGOA FORMOSA'
+        ELSE 'OUTROS'
+    END AS cidade,
+    COUNT(contrato.codcontrato)
 
-            GROUP BY 1,2
+FROM 
+    public.mk_contratos contrato
+    INNER JOIN public.mk_pessoas pessoa     ON  (pessoa.codpessoa = contrato.cliente)
+    INNER JOIN public.mk_cidades cidade     ON  (pessoa.codcidade = cidade.codcidade)
+    INNER JOIN public.mk_conexoes conexao   ON  (contrato.codcontrato = conexao.contrato)
+
+WHERE contrato.cancelado = 'N'
+    AND (contrato.suspenso = 'N' OR contrato.suspenso IS NULL)
+    AND conexao.tipo_conexao = 1
+    AND conexao.conexao_bloqueada = 'S'
+    AND conexao.ultimo_bloqueio_auto BETWEEN '{}' AND '{}'
+    
+GROUP BY 1,2
 
             '''.format(
-                #-----------------
+                # -----------------
                 inicio,
                 final,
                 periodo,
                 inicio,
                 final
-                #-----------------
+                # -----------------
             )
 
             if x != (self.dates_.range_meses - 1):
-                complete_query = complete_query + simple_query + '''UNION'''
+                complete_query = complete_query + simple_query + '''
+UNION
+'''
             else:
-                complete_query = complete_query + simple_query + '''ORDER BY 2 ASC	, 1 ASC;'''
+                complete_query = complete_query + simple_query + '''
+ORDER BY 2 ASC	, 1 ASC;
+'''
 
         return str(complete_query)
-        
-    def bloqueios_total_por_mes(self): 
+
+    def bloqueios_total_por_mes(self):
 
         # Variaveis
         # -------------------------
         complete_query = ''
         # -------------------------
-        
-        
-        for x in range(self.dates_.range_meses): 
+
+        for x in range(self.dates_.range_meses):
 
             # Variaveis dates
             # --------------------------------------------------
             inicio, final, periodo = self.dates_.dates_personalizadas(x)
             # --------------------------------------------------
-            
-            
+
             simple_query = '''
 
-            SELECT
-                case when (conexao.ultimo_bloqueio_auto between '{}' AND '{}') THEN TO_DATE('{}', 'MM/YYYY') end as dt_bloqueio,
-                count(contrato.codcontrato)
-                    
-            from public.mk_contratos contrato
-            inner join public.mk_pessoas pessoa on (pessoa.codpessoa = contrato.cliente)
-            inner join public.mk_cidades cidade on (pessoa.codcidade = cidade.codcidade)
-            inner join public.mk_conexoes conexao on (contrato.codcontrato = conexao.contrato)
+SELECT 
+    CASE WHEN (conexao.ultimo_bloqueio_auto BETWEEN '{}' AND '{}') THEN TO_DATE('{}', 'MM/YYYY') END AS dt_bloqueio,
+    COUNT(contrato.codcontrato)
 
-            where contrato.cancelado = 'N'
-            and (contrato.suspenso = 'N' OR contrato.suspenso IS NULL)
-            and conexao.tipo_conexao = 1
-            and conexao.conexao_bloqueada = 'S'
-            and conexao.ultimo_bloqueio_auto between '{}' AND '{}'
+FROM 
+    public.mk_contratos contrato
+    INNER JOIN public.mk_pessoas pessoa     ON (pessoa.codpessoa = contrato.cliente)
+    INNER JOIN public.mk_cidades cidade     ON (pessoa.codcidade = cidade.codcidade)
+    INNER JOIN public.mk_conexoes conexao   ON (contrato.codcontrato = conexao.contrato)  
 
-            GROUP BY 1
+WHERE
+    contrato.cancelado = 'N'
+    AND (contrato.suspenso = 'N' OR contrato.suspenso IS NULL)
+    AND conexao.tipo_conexao = 1
+    AND conexao.conexao_bloqueada = 'S'
+    AND conexao.ultimo_bloqueio_auto BETWEEN '{}' AND '{}'
+
+GROUP BY 1  
 
             '''.format(
-                #-----------------
+                # -----------------
                 inicio,
                 final,
                 periodo,
                 inicio,
                 final
-                #-----------------
-                )
-            
-
+                # -----------------
+            )
 
             if x != (self.dates_.range_meses - 1):
-                complete_query = complete_query + simple_query + '''UNION'''
+                complete_query = complete_query + simple_query + '''
+UNION
+'''
             else:
-                complete_query = complete_query + simple_query + '''ORDER BY 1;'''
-                
+                complete_query = complete_query + simple_query + '''
+ORDER BY 1;
+'''
 
         return str(complete_query)
 
-    def evolucao_bloqueios_por_cidade(self): 
+    def evolucao_bloqueios_por_cidade(self):
 
         # Variaveis
         # -------------------------
@@ -137,117 +145,8 @@ class Querys_de_Bloqueio_MK:
 
         # Data Fixa
         # -----------------------------
-        data_fixa = str(date(2010,1,1).strftime(self.dates_.style_date)) 
+        data_fixa = str(date(2010, 1, 1).strftime(self.dates_.style_date))
         # -----------------------------
-        
-        for x in range(self.dates_.range_meses):
-
-            # Variaveis
-            # --------------------------------------------------
-            inicio, final, periodo = self.dates_.dates_personalizadas(x)
-            # --------------------------------------------------
-
-            simple_query = '''
-                SELECT
-                    case when (conexao.ultimo_bloqueio_auto between '{}' AND '{}') THEN TO_DATE('{}', 'MM/YYYY')
-                    end as dt_bloqueio,
-                    case when (upper(cidade.cidade) LIKE '%PATR%') THEN 'PATROCINIO'
-                    when (upper(cidade.cidade) LIKE '%PATO%') THEN 'PATOS DE MINAS'
-                    when (upper(cidade.cidade) LIKE '%GUIM%') THEN 'GUIMARANIA'
-                    when (upper(cidade.cidade) LIKE '%ABAD%') THEN 'ABADIA DOS DOURADOS'
-                    when (upper(cidade.cidade) LIKE '%IRA%') THEN 'IRAI DE MINAS'
-                    when (upper(cidade.cidade) LIKE '%CRUZ%') THEN 'CRUZEIRO DA FORTALEZA'
-                    when (upper(cidade.cidade) LIKE '%VARJ%') THEN 'VARJAO DE MINAS'
-                    when (upper(cidade.cidade) LIKE '%OLEG%') THEN 'PRESIDENTE OLEGARIO'
-                    when (upper(cidade.cidade) LIKE '%MARIAS%') THEN 'TRES MARIAS'
-                    when (upper(cidade.cidade) LIKE '%JOAO%') THEN 'JOAO PINHEIRO'
-                    when (upper(cidade.cidade) LIKE '%LAGOA%') THEN 'LAGOA FORMOSA'
-                    ELSE 'OUTROS'
-                end as cidade,
-                    count(contrato.codcontrato)
-                        
-                from public.mk_contratos contrato
-                inner join public.mk_pessoas pessoa on (pessoa.codpessoa = contrato.cliente)
-                inner join public.mk_cidades cidade on (pessoa.codcidade = cidade.codcidade)
-                inner join public.mk_conexoes conexao on (contrato.codcontrato = conexao.contrato)
-
-                where contrato.cancelado = 'N'
-                and (contrato.suspenso = 'N' OR contrato.suspenso IS NULL)
-                and conexao.tipo_conexao = 1
-                and conexao.conexao_bloqueada = 'S'
-                and (conexao.ultimo_bloqueio_auto between '{}' AND '{}')
-
-                GROUP BY 1,2
-
-                '''.format(
-                #-----------------
-                data_fixa,
-                final,
-                periodo,
-                data_fixa,
-                final
-                #-----------------
-            )
-
-            # Final da Query para Datas NULL
-            end_simple_query = ''' 
-                UNION
-
-                SELECT
-                    case when (conexao.ultimo_bloqueio_auto IS NULL) THEN 'DATA NULL'
-                    end as dt_bloqueio,
-                    case when (upper(cidade.cidade) LIKE '%PATR%') THEN 'PATROCINIO'
-                    when (upper(cidade.cidade) LIKE '%PATO%') THEN 'PATOS DE MINAS'
-                    when (upper(cidade.cidade) LIKE '%GUIM%') THEN 'GUIMARANIA'
-                    when (upper(cidade.cidade) LIKE '%ABAD%') THEN 'ABADIA DOS DOURADOS'
-                    when (upper(cidade.cidade) LIKE '%IRA%') THEN 'IRAI DE MINAS'
-                    when (upper(cidade.cidade) LIKE '%CRUZ%') THEN 'CRUZEIRO DA FORTALEZA'
-                    when (upper(cidade.cidade) LIKE '%VARJ%') THEN 'VARJAO DE MINAS'
-                    when (upper(cidade.cidade) LIKE '%OLEG%') THEN 'PRESIDENTE OLEGARIO'
-                    when (upper(cidade.cidade) LIKE '%MARIAS%') THEN 'TRES MARIAS'
-                    when (upper(cidade.cidade) LIKE '%JOAO%') THEN 'JOAO PINHEIRO'
-                    when (upper(cidade.cidade) LIKE '%LAGOA%') THEN 'LAGOA FORMOSA'
-                    ELSE 'OUTROS'
-                end as cidade,
-                    count(contrato.codcontrato)
-                        
-                from public.mk_contratos contrato
-                inner join public.mk_pessoas pessoa on (pessoa.codpessoa = contrato.cliente)
-                inner join public.mk_cidades cidade on (pessoa.codcidade = cidade.codcidade)
-                inner join public.mk_conexoes conexao on (contrato.codcontrato = conexao.contrato)
-
-                where contrato.cancelado = 'N'
-                and (contrato.suspenso = 'N' OR contrato.suspenso IS NULL)
-                and conexao.tipo_conexao = 1
-                and conexao.conexao_bloqueada = 'S'
-                and (conexao.ultimo_bloqueio_auto IS NULL)
-
-                GROUP BY 1,2
-            '''
-
-            if x != (self.dates_.range_meses - 1):
-                complete_query = complete_query + simple_query + '''UNION'''
-            else:
-                # complete_query = complete_query + simple_query + end_simple_query + '''ORDER BY  2,  1;'''
-                complete_query = complete_query + simple_query + '''ORDER BY  2,  1;'''
-
-
-
-        return str(complete_query)
-
-    def evolucao_bloqueios_totais_por_mes(self): 
-
-        # Variaveis
-        # -------------------------
-        complete_query = ''
-        # -------------------------
-
-        # Data Fixa
-        # -----------------------------
-        data_fixa = str(date(2010,1,1).strftime(self.dates_.style_date)) 
-        # -----------------------------
-        
-        
 
         for x in range(self.dates_.range_meses):
 
@@ -257,65 +156,119 @@ class Querys_de_Bloqueio_MK:
             # --------------------------------------------------
 
             simple_query = '''
-                SELECT
-                    case when (conexao.ultimo_bloqueio_auto between '{}' AND '{}') THEN TO_DATE('{}', 'MM/YYYY')
-                    end as dt_bloqueio,
-                    count(contrato.codcontrato)
-                        
-                from public.mk_contratos contrato
-                inner join public.mk_pessoas pessoa on (pessoa.codpessoa = contrato.cliente)
-                inner join public.mk_cidades cidade on (pessoa.codcidade = cidade.codcidade)
-                inner join public.mk_conexoes conexao on (contrato.codcontrato = conexao.contrato)
 
-                where contrato.cancelado = 'N'
-                and (contrato.suspenso = 'N' OR contrato.suspenso IS NULL)
-                and conexao.tipo_conexao = 1
-                and conexao.conexao_bloqueada = 'S'
-                and (conexao.ultimo_bloqueio_auto between '{}' AND '{}')
+SELECT
+    CASE 
+        WHEN (conexao.ultimo_bloqueio_auto BETWEEN '{}' AND '{}') THEN TO_DATE('{}', 'MM/YYYY') END AS dt_bloqueio,
+    CASE 
+        WHEN (upper(cidade.cidade) LIKE '%PATR%')   THEN 'PATROCINIO'
+        WHEN (upper(cidade.cidade) LIKE '%PATO%')   THEN 'PATOS DE MINAS'
+        WHEN (upper(cidade.cidade) LIKE '%GUIM%')   THEN 'GUIMARANIA'
+        WHEN (upper(cidade.cidade) LIKE '%ABAD%')   THEN 'ABADIA DOS DOURADOS'
+        WHEN (upper(cidade.cidade) LIKE '%IRA%')    THEN 'IRAI DE MINAS'
+        WHEN (upper(cidade.cidade) LIKE '%CRUZ%')   THEN 'CRUZEIRO DA FORTALEZA'
+        WHEN (upper(cidade.cidade) LIKE '%VARJ%')   THEN 'VARJAO DE MINAS'
+        WHEN (upper(cidade.cidade) LIKE '%OLEG%')   THEN 'PRESIDENTE OLEGARIO'
+        WHEN (upper(cidade.cidade) LIKE '%MARIAS%') THEN 'TRES MARIAS'
+        WHEN (upper(cidade.cidade) LIKE '%JOAO%')   THEN 'JOAO PINHEIRO'
+        WHEN (upper(cidade.cidade) LIKE '%LAGOA%')  THEN 'LAGOA FORMOSA'
+        ELSE 'OUTROS'
+    END AS cidade,
+    COUNT(contrato.codcontrato)
+    
+FROM 
+    public.mk_contratos contrato
+    INNER JOIN public.mk_pessoas pessoa     ON (pessoa.codpessoa = contrato.cliente)
+    INNER JOIN public.mk_cidades cidade     ON (pessoa.codcidade = cidade.codcidade)
+    INNER JOIN public.mk_conexoes conexao   ON (contrato.codcontrato = conexao.contrato)
 
-                GROUP BY 1
+WHERE 
+    contrato.cancelado = 'N'
+    AND (contrato.suspenso = 'N' OR contrato.suspenso IS NULL)
+    AND conexao.tipo_conexao = 1
+    AND conexao.conexao_bloqueada = 'S'
+    AND (conexao.ultimo_bloqueio_auto BETWEEN '{}' AND '{}')
 
-                '''.format(
-                    #-----------------
-                    data_fixa,
-                    final,
-                    periodo,
-                    data_fixa,
-                    final
-                    #-----------------
-                )
+GROUP BY 1,2  
 
-            end_simple_query = '''
-                    UNION
-
-                    SELECT
-                        case when (conexao.ultimo_bloqueio_auto IS NULL) THEN 'DATA NULL'
-                        end as dt_bloqueio,
-                        count(contrato.codcontrato)
-                            
-                    from public.mk_contratos contrato
-                    inner join public.mk_pessoas pessoa on (pessoa.codpessoa = contrato.cliente)
-                    inner join public.mk_cidades cidade on (pessoa.codcidade = cidade.codcidade)
-                    inner join public.mk_conexoes conexao on (contrato.codcontrato = conexao.contrato)
-
-                    where contrato.cancelado = 'N'
-                    and (contrato.suspenso = 'N' OR contrato.suspenso IS NULL)
-                    and conexao.tipo_conexao = 1
-                    and conexao.conexao_bloqueada = 'S'
-                    and (conexao.ultimo_bloqueio_auto IS NULL)
-
-                    GROUP BY 1
-
-                '''
+            '''.format(
+            # -----------------
+            data_fixa,
+            final,
+            periodo,
+            data_fixa,
+            final
+            # -----------------
+            )
 
             if x != (self.dates_.range_meses - 1):
-                complete_query = complete_query + simple_query + '''UNION'''
+                complete_query = complete_query + simple_query + '''
+UNION
+'''
             else:
-                # complete_query = complete_query + simple_query + end_simple_query + '''ORDER BY  1,  2;'''
-                complete_query = complete_query + simple_query + '''ORDER BY  1,  2;'''
-
-
+                complete_query = complete_query + simple_query + '''
+ORDER BY  2,  1;
+'''
 
         return str(complete_query)
 
+    def evolucao_bloqueios_totais_por_mes(self):
 
+        # Variaveis
+        # -------------------------
+        complete_query = ''
+        # -------------------------
+
+        # Data Fixa
+        # -----------------------------
+        data_fixa = str(date(2010, 1, 1).strftime(self.dates_.style_date))
+        # -----------------------------
+
+        for x in range(self.dates_.range_meses):
+
+            # Variaveis
+            # --------------------------------------------------
+            inicio, final, periodo = self.dates_.dates_personalizadas(x)
+            # --------------------------------------------------
+
+            simple_query = '''
+            
+SELECT
+    CASE WHEN (conexao.ultimo_bloqueio_auto BETWEEN '{}' AND '{}') THEN TO_DATE('{}', 'MM/YYYY') END AS dt_bloqueio,
+    COUNT(contrato.codcontrato)
+
+FROM 
+    public.mk_contratos contrato
+    INNER JOIN public.mk_pessoas pessoa    ON (pessoa.codpessoa = contrato.cliente)
+    INNER JOIN public.mk_cidades cidade    ON (pessoa.codcidade = cidade.codcidade)
+    INNER JOIN public.mk_conexoes conexao  ON (contrato.codcontrato = conexao.contrato)
+
+WHERE 
+    contrato.cancelado = 'N'
+    AND (contrato.suspenso = 'N' OR contrato.suspenso IS NULL)
+    AND conexao.tipo_conexao = 1
+    AND conexao.conexao_bloqueada = 'S'
+    AND (conexao.ultimo_bloqueio_auto BETWEEN '{}' AND '{}')
+
+GROUP BY 1
+        
+            '''.format(
+            # -----------------
+            data_fixa,
+            final,
+            periodo,
+            data_fixa,
+            final
+            # -----------------
+            )
+
+            if x != (self.dates_.range_meses - 1):
+                complete_query = complete_query + simple_query + '''
+UNION
+'''
+            else:
+                complete_query = complete_query + simple_query + '''
+ORDER BY  1,  2;
+'''
+
+        return str(complete_query)
