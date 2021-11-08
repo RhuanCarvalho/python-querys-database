@@ -1,5 +1,5 @@
 from Env_Vars import Env_Vars
-from .configs.Style_Cells import Style
+from .Style_Cells import Style
 from .Save_to_PDF import Save_to_PDF
 from Consultas.Get_Date import Get_Date
 

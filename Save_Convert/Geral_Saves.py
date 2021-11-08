@@ -3,9 +3,9 @@ import pandas as pd
 from Env_Vars import Env_Vars
 from DataBase.Connect_DB import Person
 
-from Save_Convert.Save_to_SQL import Save_to_SQL
-from Save_Convert.Save_to_Excel import Save_to_Excel
-from Save_Convert.Save_to_PDF import Save_to_PDF
+from Save_Convert.configs.Save_to_SQL import Save_to_SQL
+from Save_Convert.configs.Save_to_Excel import Save_to_Excel
+from Save_Convert.configs.Save_to_PDF import Save_to_PDF
 
 
 class Geral_Save:
